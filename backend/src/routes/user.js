@@ -14,7 +14,7 @@ router.post('/register', async (request, response) => {
         const salt = bcrypt.genSaltSync(10)
         const hash = bcrypt.hashSync(request.body.password, salt)
         await User.create({
-            username: request.body.username,
+            username: request.body.email,
             password: hash
         })
         response.status(200).json({message: 'User registered successfully'})

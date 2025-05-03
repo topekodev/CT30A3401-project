@@ -10,6 +10,7 @@ router.post('/register', async (request, response) => {
         const existingUser = await User.findOne({username: request.body.username})
         if (existingUser) {
             response.status(403).json({message: 'Username already in use'})
+            return
         }
         const salt = bcrypt.genSaltSync(10)
         const hash = bcrypt.hashSync(request.body.password, salt)

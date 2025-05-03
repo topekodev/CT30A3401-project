@@ -44,3 +44,5 @@ router.post('/login', async (request, response) => {
         response.status(500).json({error: 'Internal server error'})
     }
 })
+
+module.exports = router

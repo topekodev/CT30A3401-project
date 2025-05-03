@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const userRouter = require('./src/routes/user')
 const postRouter = require('./src/routes/post')
+const indexRouter = require('./src/routes/index')
 
 dotenv.config()
 
@@ -21,6 +22,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/api/user', userRouter)
 app.use('/api/post', postRouter)
+app.use('/', indexRouter)
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)

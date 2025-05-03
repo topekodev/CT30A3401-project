@@ -1,11 +1,13 @@
 <script lang="ts">
 import '$lib/styles/app.css';
+
+const user = "test";
 </script>
 
 <div class="page">
   <div class="container">
     <div class="content">
-      <h1>Hello world</h1>
+      <h1>{user}</h1>
     </div>
   </div>
 </div>

@@ -1,6 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
+const cors = require('cors')
 const userRouter = require('./src/routes/user')
 
 dotenv.config()
@@ -14,6 +15,7 @@ mongoose.Promise = Promise
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'MongoDB connection error'))
 
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/api/user', userRouter)

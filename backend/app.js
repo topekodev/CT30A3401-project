@@ -1,8 +1,18 @@
 const express = require('express')
+const dotenv = require('dotenv')
+const mongoose = require('mongoose')
 const userRouter = require('./src/routes/user')
+
+dotenv.config()
 
 const app = express()
 const port = 3000
+
+const mongoDB = process.env.MONGODBURL
+mongoose.connect(mongoDB)
+mongoose.Promise = Promise
+const db = mongoose.connection
+db.on('error', console.error.bind(console, 'MongoDB connection error'))
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))

@@ -1,12 +1,16 @@
 <script lang="ts">
 import '$lib/styles/app.css';
-import { browser } from '$app/environment';
+import { onMount } from 'svelte';
 
 let hasCookie = false;
 
-$: if (browser) {
-  hasCookie = document.cookie.includes('token=');
-}
+onMount(() => {
+  try {
+    hasCookie = document.cookie.includes('token=');
+  } catch (e) {
+    hasCookie = false;
+  }
+});
 </script>
 
 <nav>
@@ -26,7 +30,7 @@ $: if (browser) {
       <li>
         <a href="/feed" class="body-txt">Feed</a>
       </li>
-      {#if hasCookie}
+      {#if !hasCookie}
       <li>
         <a href="/register" class="body-txt">Register</a>
       </li>

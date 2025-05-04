@@ -19,7 +19,9 @@ router.post('/:userId', validateToken, async (request, response) => {
 
 router.get('/:id', async (request, response) => {
     try {
-        const post = Post.findById(request.params.id)
+        console.log(typeof request.params.id)
+        const post = await Post.findById(request.params.id)
+        console.log(post)
         if (!post) {
             response.status(404).json({message: 'Post not found'})
             return

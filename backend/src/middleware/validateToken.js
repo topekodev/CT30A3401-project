@@ -13,6 +13,10 @@ const validateToken = (request, response, next) => {
         try {
             const verified = jwt.verify(token, process.env.SECRET)
             request.user = verified
+            if (request.params.userId !== request.user.id) {
+                response.status(401).json({message: 'Access denied.'})
+                return
+            }
             next()
         } catch (error) {
             response.status(401).json({message: 'Access denied.'})

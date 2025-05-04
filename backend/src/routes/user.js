@@ -2,6 +2,7 @@ const express = require('express')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const User = require('../models/User')
+const Post = require('../models/Post')
 
 const router = express.Router()
 
@@ -41,6 +42,15 @@ router.post('/login', async (request, response) => {
         else {
             response.status(401).json({message: 'Login failed'})
         }
+    } catch (error) {
+        response.status(500).json({error: 'Internal server error'})
+    }
+})
+
+router.get('/:userId/countOfPost', async (request, response) => {
+    try {
+        const count = await Post.countDocuments({user: request.params.userId})
+        response.json({count: count})
     } catch (error) {
         response.status(500).json({error: 'Internal server error'})
     }

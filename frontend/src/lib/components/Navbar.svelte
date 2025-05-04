@@ -42,7 +42,7 @@ onMount(() => {
       </li>
       {:else}
       <li>
-        <a href="/logout" class="body-txt">Logout</a>
+        <a href="/logout" class="body-txt">Logout from {username}</a>
       </li>
       {/if}
     </ul>

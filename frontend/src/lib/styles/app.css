@@ -1,0 +1,102 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+  overflow-x: hidden;
+  font-size: 62.5%;
+  --nav-height: 6rem;
+  --max-width: 996px;
+  --container-padding: 20px;
+
+  /* Font size */
+  --hero-size: 3.4rem;
+  --title-size: 3.2rem;
+  --heading-size: 2.4rem;
+  --sub-heading-size: 2.2rem;
+  --body-size: 1.4rem;
+  --secondary-size: 1.2rem;
+  --label-medium-size: 1.4rem;
+  --label-large-size: 1.6rem;
+  /* Font weight */
+  --hero-weight: 700;
+  --title-weight: 700;
+  --heading-weight: 700;
+  --sub-heading-weight: 600;
+  --body-weight: 400;
+  --secondary-weight: 400;
+  --label-medium-weight: 600;
+  --label-large-weight: 600;
+
+  /* Colors */
+  --base: #FFFFFF;
+  --primary: #0C0F12;
+  --secondary: #FFFFFF;
+  --cutout: #D9D9D9;
+  --border: #858585;
+  --state-disabled: #CFCFCF;
+  --state-success: #BEFFB6;
+  --state-error: #FFC0C0;
+}
+h1, h2, h3, h4, p, a, span, button, input, textarea {
+  font-family: "Inter", sans-serif;
+}
+.hero-txt {
+  font-size: var(--hero-size);
+  font-weight: var(--hero-weight);
+}
+.title-txt {
+  font-size: var(--title-size);
+  font-weight: var(--title-weight);
+}
+.heading-txt {
+  font-size: var(--heading-size);
+  font-weight: var(--heading-weight);
+}
+.sub-heading-txt {
+  font-size: var(--sub-heading-size);
+  font-weight: var(--sub-heading-weight);
+}
+.body-txt {
+  font-size: var(--body-size);
+  font-weight: var(--body-weight);
+}
+.secondary-txt {
+  font-size: var(--secondary-size);
+  font-weight: var(--secondary-weight);
+}
+.label-medium-txt {
+  font-size: var(--label-medium-size);
+  font-weight: var(--label-medium-weight);
+}
+.label-large-txt {
+  font-size: var(--label-large-size);
+  font-weight: var(--label-large-weight);
+}
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 100svh;
+  box-sizing: border-box;
+  background-color: var(--base-light);
+}
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+  max-width: var(--max-width);
+}
+.page {
+  padding-top: var(--nav-height);
+}
+html {
+  scroll-behavior: auto;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}

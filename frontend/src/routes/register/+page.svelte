@@ -1,6 +1,7 @@
 <script lang="ts">
 import '$lib/styles/app.css';
 import { apiPost } from '$lib/utils/api';
+import { goto } from '$app/navigation';
 
 let username: string;
 let password: string;
@@ -14,7 +15,9 @@ const handleRegister = async () => {
     'Content-Type': 'application/json'
   };
   const response = await apiPost("user/register", body, headers);
-  console.log(response);
+  if (response.status === 200) {
+    goto('/login');
+  }
 }
 </script>
 

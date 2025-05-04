@@ -1,5 +1,12 @@
 <script lang="ts">
 import '$lib/styles/app.css';
+import { browser } from '$app/environment';
+
+let hasCookie = false;
+
+$: if (browser) {
+  hasCookie = document.cookie.includes('token=');
+}
 </script>
 
 <nav>
@@ -19,12 +26,18 @@ import '$lib/styles/app.css';
       <li>
         <a href="/feed" class="body-txt">Feed</a>
       </li>
+      {#if hasCookie}
       <li>
         <a href="/register" class="body-txt">Register</a>
       </li>
       <li>
         <a href="/login" class="body-txt">Login</a>
       </li>
+      {:else}
+      <li>
+        <a href="/logout" class="body-txt">Logout</a>
+      </li>
+      {/if}
     </ul>
   </div>
 </nav>

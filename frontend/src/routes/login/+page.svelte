@@ -1,31 +1,33 @@
 <script lang="ts">
 import '$lib/styles/app.css';
-import { apiPost } from '$lib/utils/api';
+import { goto } from '$app/navigation';
+import { browser } from '$app/environment';
 
-let username: string;
-let password: string;
+export let form;
 
-const handleLogin = async () => {
-  const body = JSON.stringify({
-    "username": username,
-    "password": password
-  });
-  const headers = {
-    'Content-Type': 'application/json'
-  };
-  const response = await apiPost("user/login", body, headers);
-  console.log(response);
+$: {
+  if (browser && form?.success) {
+    goto('/feed');
+  }
 }
 </script>
 
 <div class="page">
   <div class="container">
-    <div class="login-box">
-      <h1>Login</h1>
-      <input bind:value={username} type="text" placeholder="Username">
-      <input bind:value={password} type="password" placeholder="Password">
-      <button on:click={handleLogin}>Login</button>
-    </div>
+      <form method="POST" action="?/login">
+        <h1>Login</h1>
+        <input type="text" id="username" name="username" placeholder="Username" />
+        <input type="password" id="password" name="password" placeholder="Password" />
+        <button type="submit">Login</button>
+
+        {#if form?.invalid}
+          <p class="body-txt error">Invalid username or password.</p>
+        {/if}
+
+        {#if form?.incorrect}
+          <p class="body-txt error">Incorrect username or password.</p>
+        {/if}
+      </form>
   </div>
 </div>
 
@@ -33,7 +35,7 @@ const handleLogin = async () => {
 h1, h2, h3, p {
   color: var(--primary);
 }
-.login-box {
+form {
   margin: 50px auto 0 auto;
   width: 250px;
   display: flex;

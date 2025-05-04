@@ -1,14 +1,17 @@
 <script lang="ts">
 import '$lib/styles/app.css';
 import { onMount } from 'svelte';
+import { page } from '$app/stores';
 
 let hasCookie = false;
 
+let jwt_token: string | null;
+let username: string | null;
 onMount(() => {
-  try {
-    hasCookie = document.cookie.includes('token=');
-  } catch (e) {
-    hasCookie = false;
+  jwt_token = $page.data.token;
+  username = $page.data.username;
+  if (jwt_token && username) {
+    hasCookie = true;
   }
 });
 </script>

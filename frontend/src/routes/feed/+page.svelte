@@ -10,19 +10,21 @@ let posts: [] = [];
 let writerInput: string;
 
 let jwt_token: string | null;
+let username: string | null;
 onMount(() => {
   jwt_token = $page.data.token;
+  username = $page.data.username;
   getPosts();
 });
 
 async function getPosts() {
   const response = await apiGet("post");
   const data = await response.json();
-  posts = data.posts;
+  posts = data.posts.reverse();
 }
 
 const handleWriterPost = async () => {
-  if (jwt_token) {
+  if (jwt_token && username) {
     const decoded = jwtDecode(jwt_token);
     const body = JSON.stringify({
       "name": writerInput,

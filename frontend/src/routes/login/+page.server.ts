@@ -21,7 +21,6 @@ export const actions: Actions = {
     };
     const response = await apiPost("user/login", body, headers);
     const responseData = await response.json();
-    console.log(responseData);
 
     if (response.status !== 200) {
       return fail(401, { incorrect: true });

@@ -19,14 +19,25 @@ router.post('/:userId', validateToken, async (request, response) => {
 
 router.get('/:id', async (request, response) => {
     try {
-        console.log(typeof request.params.id)
         const post = await Post.findById(request.params.id)
-        console.log(post)
         if (!post) {
             response.status(404).json({message: 'Post not found'})
             return
         }
         response.status(200).json({post: post})
+    } catch (error) {
+        response.status(500).json({error: 'Internal server error'})
+    }
+})
+
+router.get('/', async (request, response) => {
+    try {
+        const posts = await Post.find({})
+        if (!posts) {
+            response.status(404).json({message: 'Posts not found'})
+            return
+        }
+        response.status(200).json({posts: posts})
     } catch (error) {
         response.status(500).json({error: 'Internal server error'})
     }

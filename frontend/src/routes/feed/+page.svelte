@@ -1,21 +1,42 @@
 <script lang="ts">
 import '$lib/styles/app.css';
 import Post from '$lib/components/Post.svelte';
+import { apiGet, apiPost } from '$lib/utils/api';
+import { page } from '$app/stores';
+import { onMount } from 'svelte';
+import { jwtDecode } from 'jwt-decode';
 
 let posts: [] = [];
 let writerInput: string;
 
-async function getPosts() {
+let jwt_token: string | null;
+onMount(() => {
+  jwt_token = $page.data.token;
+  getPosts();
+});
 
+async function getPosts() {
+  const response = await apiGet("post");
+  const data = await response.json();
+  posts = data.posts;
 }
 
 const handleWriterPost = async () => {
-  const body = JSON.stringify({
-    "text": writerInput
-  });
-  console.log(body);
-  writerInput = "";
-  getPosts();
+  if (jwt_token) {
+    const decoded = jwtDecode(jwt_token);
+    const body = JSON.stringify({
+      "name": writerInput,
+      "user": decoded.id
+    });
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${jwt_token}`
+    };
+    const path = "post/" + decoded.id;
+    const response = await apiPost(path, body, headers);
+    writerInput = "";
+    getPosts();
+  }
 }
 </script>
 
@@ -26,9 +47,9 @@ const handleWriterPost = async () => {
       <button on:click={handleWriterPost}>Post</button>
     </div>
     <div class="content">
-      <Post user="Pekka" text="Lorem ipsum dolor sit amet. 1" />
-      <Post user="Tiivi" text="Lorem ipsum dolor sit amet. 2" />
-      <Post user="Taavi" text="Lorem ipsum dolor sit amet. 3" />
+      {#each posts as post}
+        <Post user={post.user} text={post.name} />
+      {/each}
     </div>
   </div>
 </div>

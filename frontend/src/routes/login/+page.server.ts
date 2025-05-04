@@ -20,13 +20,14 @@ export const actions: Actions = {
       'Content-Type': 'application/json'
     };
     const response = await apiPost("user/login", body, headers);
-    console.log(response);
+    const responseData = await response.json();
+    console.log(responseData);
 
     if (response.status !== 200) {
       return fail(401, { incorrect: true });
     }
 
-    const token = 'fake_jwt_token'; // Replace with actual JWT generation
+    const token = responseData.token;
     loginUser(cookies, token, username);
 
     return { success: true };

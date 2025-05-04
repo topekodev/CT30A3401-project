@@ -22,6 +22,11 @@ export function loginUser(cookies: Cookies, token: string, username: string) {
   });
 }
 
-export function logoutUser() {
-
+export function logoutUser(cookies: Cookies) {
+  cookies.delete('token', {
+    path: '/'
+  });
+  cookies.delete('username', {
+    path: '/'
+  });
 }
